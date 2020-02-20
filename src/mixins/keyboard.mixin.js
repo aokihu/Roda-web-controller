@@ -31,14 +31,13 @@ export default {
     // 定时300ms处理接受的字符
     this.keyboardCheckTimer = setInterval(() => {
       if (this.oldKeys.x !== this.keys.x || this.oldKeys.y !== this.keys.y) {
-        this.$bus.emit('motion_update', { x: this.keys.x, y: this.keys.y });
         this.$store.commit('gamepad/setMotionX', this.keys.x);
         this.$store.commit('gamepad/setMotionY', this.keys.y);
       }
-
+      this.$bus.emit('motion_update', { x: this.keys.x, y: this.keys.y });
       this.oldKeys.x = this.keys.x;
       this.oldKeys.y = this.keys.y;
-    }, 100);
+    }, 20);
   },
   destroyed() {
     window.removeEventListener('keydown', this.onKeydown);
