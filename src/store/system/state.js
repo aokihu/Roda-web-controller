@@ -7,6 +7,9 @@ export default {
   p2p: {
     isConnected: false,
   },
+  server: { // 服务器状态
+    isConnected: false,
+  },
   mediastream: {
     video: { playing: false },
   },

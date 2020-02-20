@@ -3,8 +3,9 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>RoBot <q-chip size="sm">{{peerId}}</q-chip></q-toolbar-title>
-        <div>
-          <q-btn label="Connect" outline />
+        <div class="row">
+          <signal />
+          <q-btn label="Connect" size="sm" flat @click="p2pConnect" />
         </div>
       </q-toolbar>
     </q-header>
@@ -17,13 +18,21 @@
 </template>
 
 <script>
+import BusMixin from 'src/mixins/bus.mixin';
 import DataMixin from 'src/mixins/data.mixin';
 import SocketMixin from 'src/mixins/socket.mixin';
 import PeerMixin from 'src/mixins/peer.mixin';
 import Keyboard from 'src/mixins/keyboard.mixin';
+import Signal from 'src/components/signal';
 
 export default {
   name: 'MainLayout',
-  mixins: [DataMixin, SocketMixin, PeerMixin, Keyboard],
+  mixins: [BusMixin, DataMixin, SocketMixin, PeerMixin, Keyboard],
+  components: { Signal },
+  methods: {
+    p2pConnect() {
+      this.$bus.emit('p2p_connect');
+    },
+  },
 };
 </script>

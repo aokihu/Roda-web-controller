@@ -1,5 +1,8 @@
 <template>
-  <q-scroll-area class="fit">
+  <q-scroll-area class="fit bg-grey-1">
+    <div class="absolute-top-right">
+      <q-chip color="teal-6" text-color="white" dense square label="LOG" />
+    </div>
     <q-list dense>
       <template v-for="log of logs">
         <q-item :key="`log-${log.index}`" active :active-class="logColor(log.type)">

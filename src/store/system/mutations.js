@@ -24,8 +24,11 @@ function insertData(state, content, type) {
 export function addSendData(state, payload) { insertData(state, payload, 0); }
 export function addRecvData(state, payload) { insertData(state, payload, 1); }
 
+// Server
+export function serverConnected(state) { state.server.isConnected = true; }
+export function serverDisconnected(state) { state.server.isConnected = false; }
 
-// P2p
+// P2P
 export function p2pConnected(state) { state.p2p.isConnected = true; }
 export function p2pDisconnected(state) { state.p2p.isConnected = false; }
 
