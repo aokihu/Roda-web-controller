@@ -4,9 +4,14 @@ export default ({ Vue, store }) => {
   const { $socket, $bus } = Vue.prototype;
 
   function peerCreate(videoRef) {
+    // 确保Peer对象的唯一性
+    if (Vue.prototype.$peer) {
+      Vue.prototype.$peer.destroy();
+    }
+
     const { destId, peerId } = store.state.system.settings;
     const peer = new SimplePeer({
-      // initiator: true,
+      initiator: true,
       config: {
         iceServers: [
           {

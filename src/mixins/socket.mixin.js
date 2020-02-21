@@ -45,6 +45,7 @@ export default {
     this.$socket.on('call_ready', (data) => {
       const { fromId } = data;
       this.$store.commit('system/addSuccessLog', `Call Ready (DestId:${fromId})`);
+      this.$bus.emit('p2p_connect');
     });
 
     this.$socket.connect();

@@ -31,7 +31,7 @@ export default {
   components: { Signal },
   methods: {
     p2pConnect() {
-      this.$bus.emit('p2p_connect');
+      this.$socket.emit('prepare_call', { fromId: this.peerId, destId: this.destId });
     },
   },
 };
