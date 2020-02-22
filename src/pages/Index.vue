@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: repeat(3, 1fr);
-  grid-gap: 16px;
+  grid-gap: 6px;
 
   .montior{
     grid-column: 2/3;

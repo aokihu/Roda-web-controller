@@ -1,11 +1,9 @@
 export default {
   methods: {
     p2pstart() {
-      setTimeout(() => {
-        const video = document.querySelector('#montior');
-        this.$peerConnect(video);
-        this.$store.commit('system/addSuccessLog', 'P2P start');
-      }, 500);
+      const video = document.querySelector('#montior');
+      this.$peerConnect(video);
+      this.$store.commit('system/addSuccessLog', 'P2P start');
     },
   },
   created() {

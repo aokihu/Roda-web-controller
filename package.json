@@ -1,6 +1,6 @@
 {
   "name": "web-controller",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A Quasar Framework app",
   "productName": "Roda Controller",
   "cordovaId": "org.cordova.quasar.app",
@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "deploy":"quasar build && scp -r dist/spa/* aokihu@bearpop.club:~/roda-web/"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

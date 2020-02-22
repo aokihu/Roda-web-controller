@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>RoBot <q-chip size="sm">{{peerId}}</q-chip></q-toolbar-title>
+        <q-toolbar-title>RoBot <q-chip size="sm">0.1.0</q-chip></q-toolbar-title>
         <div class="row">
           <signal />
           <q-btn label="Connect" size="sm" flat @click="p2pConnect" />

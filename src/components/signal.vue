@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- P2P -->
-    <q-chip square label="TARGET" size="sm" :icon="p2pSignalIcon"
+    <q-chip square :label="targetId" size="sm" :icon="p2pSignalIcon"
             :color="p2pSignalBgColor"
             :text-color="p2pSignalTextColor" />
     <!-- 服务器连接状态 -->
@@ -18,6 +18,7 @@ import {
 // 信号指示器
 export default {
   computed: {
+    targetId() { return this.$store.state.system.settings.destId; },
     serverSignalIcon() {
       const { isConnected } = this.$store.state.system.server;
       return isConnected ? this.signalConnect : this.signalDsiconnect;

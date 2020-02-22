@@ -1,5 +1,5 @@
 <template>
-  <q-scroll-area class="fit">
+  <q-scroll-area class="fit bg-light-green-1">
     <q-list dense>
       <template v-for="log of logs">
         <q-item :key="`log-${log.index}`" active :active-class="logColor(log.type)">
@@ -11,6 +11,7 @@
       </template>
     </q-list>
   </q-scroll-area>
+
 </template>
 
 <script>

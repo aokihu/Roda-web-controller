@@ -7,5 +7,6 @@ export default {
     keyA: false,
     keyS: false,
     keyD: false,
+    keySPACE: false,
   },
 };

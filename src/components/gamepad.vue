@@ -2,7 +2,7 @@
 .keyboard6{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 12px;
 
   .keyW{
@@ -23,6 +23,10 @@
   .keyD{
     grid-row: 2 / 3;
     grid-column: 3 / 4;
+  }
+  .keySpace {
+    grid-row: 3/4;
+    grid-column: 1/4;
   }
 }
 </style>
@@ -48,6 +52,9 @@
              label="S" push :color="colorS" class="keyS" :class="{'q-btn--active':activeS}" />
       <q-btn size="lg"
              label="D" push :color="colorD" class="keyD" :class="{'q-btn--active':activeD}" />
+      <q-btn size="lg"
+             label="SPACE" push :color="colorSPACE"
+             class="keySpace" :class="{'q-btn--active':activeSPACE}" />
       </div>
     </div>
   </div>
@@ -65,10 +72,12 @@ export default {
     activeS() { return this.$store.state.gamepad.keyboard.keyS; },
     activeA() { return this.$store.state.gamepad.keyboard.keyA; },
     activeD() { return this.$store.state.gamepad.keyboard.keyD; },
+    activeSPACE() { return this.$store.state.gamepad.keyboard.keySPACE; },
     colorW() { return this.activeW ? 'pink-8' : 'blue-7'; },
     colorA() { return this.activeA ? 'pink-8' : 'blue-7'; },
     colorS() { return this.activeS ? 'pink-8' : 'blue-7'; },
     colorD() { return this.activeD ? 'pink-8' : 'blue-7'; },
+    colorSPACE() { return this.activeSPACE ? 'pink-8' : 'blue-7'; },
     directionRotation() {
       const { x, y } = this.$store.state.gamepad.motion;
       if (y === 0 && x === 1) return 'transform: rotate(90deg)';
