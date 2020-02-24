@@ -38,6 +38,8 @@ import createApp from './app.js'
 
 import qboot_Bootbus from 'boot/bus'
 
+import qboot_Bootamap from 'boot/amap'
+
 import qboot_Bootaxios from 'boot/axios'
 
 import qboot_Bootsocket from 'boot/socket'
@@ -76,7 +78,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Bootbus,qboot_Bootaxios,qboot_Bootsocket,qboot_Bootpeer,qboot_Bootgamepad]
+  const bootFiles = [qboot_Bootbus,qboot_Bootamap,qboot_Bootaxios,qboot_Bootsocket,qboot_Bootpeer,qboot_Bootgamepad]
 
   for (let i = 0; routeUnchanged === true && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

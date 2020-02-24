@@ -8,6 +8,7 @@ export default {
   },
   created() {
     const { $store } = this;
+    const $this = this;
     // ------------监听总线消息--------------
 
     // 更新设备的行动数据
@@ -17,7 +18,10 @@ export default {
 
     // P2P消息处理方法定义
     const P2PHandler = {
-      p2p_gps_change(payload) { $store.commit('robot/setGps', payload); },
+      p2p_gps_change(payload) {
+        $store.commit('robot/setGps', payload);
+        $this.$bus.emit('gps_change', payload);
+      },
     };
 
     // 接收到P2P数据

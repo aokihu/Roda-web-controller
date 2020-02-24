@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
     "test": "echo \"No test specified\" && exit 0",
-    "deploy":"quasar build && scp -r dist/spa/* aokihu@bearpop.club:~/roda-web/"
+    "deploy": "quasar build && scp -r dist/spa/* aokihu@bearpop.club:~/roda-web/"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
@@ -20,7 +20,8 @@
     "quasar": "^1.0.0",
     "simple-peer": "^9.6.2",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.0",
+    "vue-amap": "^0.5.10"
   },
   "devDependencies": {
     "@quasar/app": "^1.0.0",
