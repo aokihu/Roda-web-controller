@@ -1,11 +1,12 @@
 import SimplePeer from 'simple-peer';
+// import * as encoders from 'src/libs/dataEncoder';
 
 export default ({ Vue, store }) => {
   const { $socket, $bus } = Vue.prototype;
 
   // 创建数据流P2P
   function peerCreate() {
-    const HandTimer = null;
+    // let HandTimer = null;
 
     // 确保Peer对象的唯一性
     if (Vue.prototype.$peer) {
@@ -16,6 +17,9 @@ export default ({ Vue, store }) => {
     const peer = new SimplePeer({
       initiator: true,
       channelName: 'data-channel',
+      ordered: false,
+      maxPacketLifeTime: 0,
+      maxRetransmits: 1,
       config: {
         iceServers: [
           {
@@ -41,14 +45,14 @@ export default ({ Vue, store }) => {
       store.commit('system/addSuccessLog', 'P2P connected');
       store.commit('system/addSendData', 'hello');
       store.commit('system/p2pConnected');
-      // HandTimer = setInterval(() => { Vue.prototype.$peerSendCommand('hand', null); }, 100);
+      // HandTimer = setInterval(() => { Vue.prototype.$peerSendCommand('hand'); }, 100);
     });
 
     peer.on('error', (err) => {
       store.commit('system/addFailLog', 'P2P error');
       store.commit('system/addFailLog', err);
       store.commit('system/p2pDisconnected');
-      clearInterval(HandTimer);
+      // clearInterval(HandTimer);
     });
 
     peer.on('data', (data) => {
@@ -119,11 +123,18 @@ export default ({ Vue, store }) => {
 
   Vue.prototype.$peerSendCommand = (type, payload) => {
     const { $peer } = Vue.prototype;
-    const cmd = payload ? { type, payload } : { type };
     const { isConnected } = store.state.system.p2p;
+    const cmd = { type, payload };
     if ($peer && isConnected) {
-      $peer.send(JSON.stringify(cmd));
+      $peer.write(JSON.stringify(cmd));
       store.commit('system/addSendData', `type: ${type}, payload: ${JSON.stringify(payload)}`);
     }
+
+    // // 数据将会包装成TypedArray形式发送
+    // const pack = encoders[type](payload);
+    // if ($peer && isConnected) {
+    //   $peer.send(pack);
+    //   store.commit('system/addSendData', `type: ${type}, payload: ${JSON.stringify(payload)}`);
+    // }
   };
 };

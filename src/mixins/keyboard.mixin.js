@@ -42,13 +42,14 @@ export default {
 
     // 定时300ms处理接受的字符
     this.keyboardCheckTimer = setInterval(() => {
-      if (this.oldKeys.x !== this.keys.x || this.oldKeys.y !== this.keys.y) {
+      const { x, y } = this.keys;
+      if (this.oldKeys.x !== x || this.oldKeys.y !== y) {
         this.$store.commit('gamepad/setMotionX', this.keys.x);
         this.$store.commit('gamepad/setMotionY', this.keys.y);
         this.$bus.emit('motion_update', { x: this.keys.x, y: this.keys.y });
         this.oldKeys = { ...this.keys };
       }
-    }, 200);
+    }, 300);
 
     // 当按键按下的时候启动计时器用于发送重复的行动数据，防止远程机器人进入刹车状态
     // 当远程机器人在1.5秒内没有接收到新的行动数据则会自动停止
@@ -59,7 +60,7 @@ export default {
         keyA, keyS, keyD, keyW, keySPACE,
       } = this.$store.state.gamepad.keyboard;
       if (keyA || keyS || keyD || keyW || keySPACE) { this.$bus.emit('motion_update', { x, y }); }
-    }, 450);
+    }, 600);
   },
   destroyed() {
     window.removeEventListener('keydown', this.onKeydown);
