@@ -48,15 +48,17 @@ export default {
         this.$bus.emit('motion_update', { x: this.keys.x, y: this.keys.y });
         this.oldKeys = { ...this.keys };
       }
-    }, 300);
+    }, 200);
 
     // 当按键按下的时候启动计时器用于发送重复的行动数据，防止远程机器人进入刹车状态
     // 当远程机器人在1.5秒内没有接收到新的行动数据则会自动停止
     // 因此这里将定时器的间隔设置成750ms
     this.keyboardSendTimer = setInterval(() => {
       const { x, y } = this.oldKeys;
-      const { keydownCount } = this.$store.state.gamepad.keyboard;
-      if (keydownCount > 0) { this.$bus.emit('motion_update', { x, y }); }
+      const {
+        keyA, keyS, keyD, keyW, keySPACE,
+      } = this.$store.state.gamepad.keyboard;
+      if (keyA || keyS || keyD || keyW || keySPACE) { this.$bus.emit('motion_update', { x, y }); }
     }, 450);
   },
   destroyed() {

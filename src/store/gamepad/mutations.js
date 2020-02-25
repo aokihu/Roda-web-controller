@@ -18,10 +18,7 @@ export function setMotionX(state, x) { state.motion.x = x; }
 export function setMotionY(state, y) { state.motion.y = y; }
 export function keyboardDown(state, keyName) {
   state.keyboard[`key${keyName.toUpperCase()}`] = true;
-  state.keyboard.keydownCount += 1;
 }
 export function keyboardUp(state, keyName) {
   state.keyboard[`key${keyName.toUpperCase()}`] = false;
-  state.keyboard.keydownCount -= 1;
 }
-export function incrsementKeyCount(state) { state.keyboard.keydownCount += 1; }
