@@ -54,12 +54,6 @@ import qboot_Bootgamepad from 'boot/gamepad'
 
 
 
-Vue.config.devtools = true
-Vue.config.productionTip = false
-
-
-
-console.info('[Quasar] Running SPA.')
 
 
 
