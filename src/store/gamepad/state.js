@@ -3,6 +3,7 @@ export default {
   gamepads: {},
   motion: { x: 0, y: 0 },
   keyboard: {
+    keydownCount: 0,
     keyW: false,
     keyA: false,
     keyS: false,

@@ -28,7 +28,7 @@ export default {
     changeRobotPosition(pos) {
       const { longitude, latitude } = pos;
       const { lat, lng } = GPSTransform.wgs2gcj(latitude, longitude);
-      this.center = [lng + 0.0002, lat + 0.0001];
+      this.center = [lng + 0.0001, lat + 0.0001];
     },
   },
   created() {
