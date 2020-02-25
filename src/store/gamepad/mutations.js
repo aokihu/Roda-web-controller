@@ -22,5 +22,6 @@ export function keyboardDown(state, keyName) {
 }
 export function keyboardUp(state, keyName) {
   state.keyboard[`key${keyName.toUpperCase()}`] = false;
-  state.keyboard.keydownCount -= 0;
+  state.keyboard.keydownCount -= 1;
 }
+export function incrsementKeyCount(state) { state.keyboard.keydownCount += 1; }

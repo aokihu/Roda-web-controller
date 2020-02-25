@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>RoBot <q-chip size="sm">0.1.0</q-chip></q-toolbar-title>
+        <q-toolbar-title>RoBot <q-chip size="sm">0.2.1</q-chip></q-toolbar-title>
         <div class="row">
           <signal />
           <q-btn label="Connect" size="sm" flat @click="p2pConnect" />
@@ -31,7 +31,7 @@ export default {
   components: { Signal },
   methods: {
     p2pConnect() {
-      this.$socket.emit('prepare_call', { fromId: this.peerId, destId: this.destId });
+      this.$socket.emit('prepare_call', { fromId: this.peerId, destId: this.destId, type: 'data' });
     },
   },
 };

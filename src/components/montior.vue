@@ -28,7 +28,11 @@ export default {
     isVideoPlaying() { return this.$store.state.system.mediastream.video.playing; },
   },
   methods: {
-    startDeviceCamera() { this.$peerSendCommand('start_video', null); },
+    startDeviceCamera() {
+      // this.$peerSendCommand('start_video', null);
+      const { peerId: fromId, destId } = this.$store.state.system.settings;
+      this.$socket.emit('prepare_call', { fromId, destId, type: 'media' });
+    },
   },
 };
 </script>

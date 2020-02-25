@@ -36,16 +36,27 @@ export default {
 
     this.$socket.on('answer', (data) => {
       this.$store.commit('system/addLog', 'Receive answer signal');
-      const { fromId, payload } = data;
+      const { fromId, payload, type } = data;
       this.fromId = fromId;
-      this.$peer.signal(JSON.parse(payload));
+
+      switch (type) {
+        case 'data':
+        default:
+          // 数据P2P
+          this.$peer.signal(JSON.parse(payload));
+          break;
+        case 'media':
+          // 流媒体P2P
+          this.$mediaStreamPeer.signal(JSON.parse(payload));
+          break;
+      }
     });
 
     // 设备端等待呼叫回应
     this.$socket.on('call_ready', (data) => {
-      const { fromId } = data;
+      const { fromId, type } = data;
       this.$store.commit('system/addSuccessLog', `Call Ready (DestId:${fromId})`);
-      this.$bus.emit('p2p_connect');
+      this.$bus.emit('p2p_connect', { type });
     });
 
     this.$socket.connect();

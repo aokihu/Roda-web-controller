@@ -46,8 +46,8 @@ export default {
         this.$store.commit('gamepad/setMotionX', this.keys.x);
         this.$store.commit('gamepad/setMotionY', this.keys.y);
         this.$bus.emit('motion_update', { x: this.keys.x, y: this.keys.y });
+        this.oldKeys = { ...this.keys };
       }
-      this.oldKeys = { ...this.keys };
     }, 300);
 
     // 当按键按下的时候启动计时器用于发送重复的行动数据，防止远程机器人进入刹车状态
@@ -57,7 +57,7 @@ export default {
       const { x, y } = this.oldKeys;
       const { keydownCount } = this.$store.state.gamepad.keyboard;
       if (keydownCount > 0) { this.$bus.emit('motion_update', { x, y }); }
-    }, 750);
+    }, 450);
   },
   destroyed() {
     window.removeEventListener('keydown', this.onKeydown);
