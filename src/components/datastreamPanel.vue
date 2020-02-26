@@ -1,23 +1,48 @@
-<template>
-  <q-scroll-area class="fit bg-light-green-1">
-    <q-list dense>
-      <template v-for="log of logs">
-        <q-item :key="`log-${log.index}`" active :active-class="logColor(log.type)">
-          <q-item-section avatar>
-            <q-icon :name="logIcon(log.type)" />
-          </q-item-section>
-          <q-item-section>{{log.content}}</q-item-section>
-        </q-item>
-      </template>
-    </q-list>
-  </q-scroll-area>
+<style lang="scss">
+.message-log-item {
+  display: flex;
+  font-size: 12px;
+  padding: 2px 12px;
+  overflow: hidden;
 
+  .icon {
+    width: 20px;
+  }
+
+  .content {
+    flex:1;
+  }
+
+  .timestamp {
+    width: 20%;
+    min-width: 60px;
+    color: $grey-6;
+  }
+}
+</style>
+
+<template>
+  <panel class="fit" label="MESSAGE">
+  <q-scroll-area class="fit">
+    <template v-for="log of logs">
+      <div :key="`log-${log.index}`" class="message-log-item">
+        <span class="timestamp">[{{log.time}}]</span>
+        <span :class="logColor(log.type)" class="icon">
+          <q-icon :name="logIcon(log.type)" size="16px" />
+        </span>
+        <span :class="logColor(log.type)" class="content">{{log.content}}</span>
+      </div>
+    </template>
+  </q-scroll-area>
+  </panel>
 </template>
 
 <script>
 import { mdiMessageArrowRight, mdiMessageArrowLeft } from '@quasar/extras/mdi-v4';
+import Panel from './panel';
 
 export default {
+  components: { Panel },
   computed: {
     logs() { return this.$store.state.system.datastream.list; },
   },

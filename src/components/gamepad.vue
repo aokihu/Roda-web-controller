@@ -32,7 +32,8 @@
 </style>
 
 <template>
-  <div class="fit bg-blue-1 relative-position">
+  <panel class="fit" label="CONTROLLER">
+  <div class="fit relative-position">
     <div class="absolute-top-right">
       <q-icon :name="iconNavigation"
               size="48px"
@@ -58,14 +59,17 @@
       </div>
     </div>
   </div>
+  </panel>
 </template>
 
 <script>
 import {
   mdiKeyboard, mdiNavigation,
 } from '@quasar/extras/mdi-v4';
+import Panel from './panel';
 
 export default {
+  components: { Panel },
   computed: {
     isConnected() { return this.$store.state.gamepad.count > 0; },
     activeW() { return this.$store.state.gamepad.keyboard.keyW; },

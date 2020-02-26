@@ -1,8 +1,10 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title>RoBot <q-chip size="sm">0.2.3</q-chip></q-toolbar-title>
+  <q-layout view="lHh Lpr lFf" class="bg-grey-3">
+    <q-header>
+      <q-toolbar class="row">
+        <img src="~/assets/roda-logo.svg"  style="height:30px"/>
+        <q-chip size="sm">0.2.3</q-chip>
+        <div class="col" />
         <div class="row">
           <signal />
           <q-btn label="Connect" size="sm" flat @click="p2pConnect" />

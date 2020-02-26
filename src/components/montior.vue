@@ -1,7 +1,8 @@
 <template>
-  <div class="fit">
+<panel class="fit" label="REMOTE MONTIOR" overlayer>
+  <div class="fit bg-blue-grey-1">
     <!-- 待机画面 -->
-    <div v-show="!isVideoPlaying" class="fit row items-center justify-center">
+    <div v-show="!isVideoPlaying" class="fit row items-center">
       <div class="col">
         <q-img src="statics/robot.svg" style="width:100%" />
        </div>
@@ -19,10 +20,14 @@
     <!-- 远程摄像机画面 -->
     <video id="montior" class="full-width" v-show="isVideoPlaying" />
   </div>
+</panel>
 </template>
 
 <script>
+import Panel from './panel';
+
 export default {
+  components: { Panel },
   computed: {
     isP2PConnected() { return this.$store.state.system.p2p.isConnected; },
     isVideoPlaying() { return this.$store.state.system.mediastream.video.playing; },

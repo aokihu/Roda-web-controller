@@ -1,20 +1,43 @@
+<style lang="scss">
+.log-item {
+  display: flex;
+  user-select: none;
+  font-size: 12px;
+  padding: 2px 12px;
+  cursor: default;
+  overflow: hidden;
+
+  .timestamp {
+    width: 20%;
+    min-width: 60px;
+    color: $grey-6;
+  }
+
+  .content {
+    flex: 1;
+    overflow: hidden;
+  }
+}
+</style>
 <template>
-  <q-scroll-area class="fit bg-grey-1">
-    <div class="absolute-top-right">
-      <q-chip color="teal-6" text-color="white" dense square label="LOG" />
-    </div>
-    <q-list dense>
-      <template v-for="log of logs">
-        <q-item :key="`log-${log.index}`" active :active-class="logColor(log.type)">
-          <q-item-section>{{log.content}}</q-item-section>
-        </q-item>
-      </template>
-    </q-list>
+  <panel class="fit" label="LOG">
+  <q-scroll-area class="fit">
+    <template v-for="log of logs">
+      <div :key="`log-${log.index}`"
+           class="log-item">
+           <span class="timestamp">[{{log.time}}]</span>
+           <span class="content" :class='logColor(log.type)'>{{log.content}}</span>
+       </div>
+    </template>
   </q-scroll-area>
+  </panel>
 </template>
 
 <script>
+import Panel from './panel';
+
 export default {
+  components: { Panel },
   computed: {
     logs() { return this.$store.state.system.log.list; },
   },

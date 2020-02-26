@@ -1,6 +1,10 @@
 function insertLog(state, content, type) {
   const { log: { index } } = state;
-  const log = { index, content, type };
+  const now = new Date();
+  const time = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds().toString().padStart(3, '0')}`;
+  const log = {
+    index, content, type, time,
+  };
   state.log.index = index + 1;
 
   if (state.log.list.length > 50) { state.log.list.pop(); }
@@ -15,7 +19,11 @@ export function addWarnLog(state, payload) { insertLog(state, payload, 3); }
 
 function insertData(state, content, type) {
   const { datastream: { index } } = state;
-  const item = { index, content, type };
+  const now = new Date();
+  const time = `${now.getMinutes()}:${now.getSeconds()}.${now.getMilliseconds().toString().padStart(3, '0')}`;
+  const item = {
+    index, content, type, time,
+  };
   state.datastream.index = index + 1;
   if (state.datastream.list.length > 30) { state.datastream.list.pop(); }
   state.datastream.list.unshift(item);

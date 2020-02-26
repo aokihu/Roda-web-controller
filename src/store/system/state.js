@@ -5,6 +5,7 @@ export default {
     type: 'controller',
   },
   p2p: {
+    isOnline: false, // 目标是否已经上线，将会通过服务器来获取这个数据
     isConnected: false,
   },
   server: { // 服务器状态

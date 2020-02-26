@@ -1,6 +1,5 @@
 <template>
-  <div class="fit bg-teal-1">
-    <div class="fit row justify-center items-center">
+  <panel class="fit" label="MAP" overlayer>
       <el-amap
         class="fit"
         :vid="'amap-vue'"
@@ -8,14 +7,14 @@
         :center="center">
         <el-amap-marker :position="center"/>
       </el-amap>
-    </div>
-  </div>
+  </panel>
 </template>
 
 <script>
 // eslint-disable-next-line no-unused-vars
 import * as GPSTransform from 'src/libs/gps-transfrom';
 import { mdiMap } from '@quasar/extras/mdi-v4';
+import Panel from './panel';
 
 export default {
   data() {
@@ -31,6 +30,7 @@ export default {
       this.center = [lng + 0.0001, lat + 0.0001];
     },
   },
+  components: { Panel },
   created() {
     this.icon = mdiMap;
 

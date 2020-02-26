@@ -2,32 +2,30 @@ export default {
   mounted() {
     // ------------- Socket 连接事件 --------------------------
     this.$socket.on('connect', () => {
-      this.$store.commit('system/addSuccessLog', 'Socket connected');
+      this.$store.commit('system/addSuccessLog', 'Server connected');
       this.$store.commit('system/serverConnected');
       this.$socket.emit('register', { id: this.peerId, type: this.type, renew: true });
     });
 
     this.$socket.on('disconnect', () => {
-      this.$store.commit('system/addFailLog', 'Socket disconnect');
+      this.$store.commit('system/addFailLog', 'Server disconnect');
       this.$store.commit('system/serverDisconnected');
     });
 
     this.$socket.on('reconnecting', (attemptNumber) => {
-      this.$store.commit('system/addLog', `Socket reconnecting... (${attemptNumber})`);
+      this.$store.commit('system/addLog', `Server reconnecting... (${attemptNumber})`);
     });
 
     this.$socket.on('reconnect', (attemptNumber) => {
-      this.$store.commit('system/addSuccessLog', `Socket reconnected (${attemptNumber})`);
+      this.$store.commit('system/addSuccessLog', `Server reconnected (${attemptNumber})`);
     });
 
     // -------------------------------------------------------
 
     this.$socket.on('register_success', () => {
       this.$store.commit('system/addSuccessLog', 'Register success');
-      // 向目标设备发送准备呼叫的消息
-
-      // 👇这部分操作将会改成用户手动连接
-      // this.$socket.emit('prepare_call', { fromId: this.peerId, destId: this.destId });
+      // 请求服务器获取在线的设备数据
+      this.$socket.emit('who_is_online');
     });
 
     this.$socket.on('register_fail', () => {
