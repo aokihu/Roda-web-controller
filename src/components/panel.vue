@@ -4,6 +4,7 @@
   flex-direction: column;
   // border: 1px solid $grey-3;
   background-color: $grey-1;
+  overflow: hidden;
 
   .label > span {
     display: inline-block;

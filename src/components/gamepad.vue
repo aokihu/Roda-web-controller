@@ -46,14 +46,34 @@
       <q-icon :name="icon" color="blue-3" size="64px" class="absolute-top-left q-ma-xs" />
       <div class="keyboard6">
       <q-btn size="lg"
+              @touchstart="btnKeydown('W')"
+              @touchend="btnKeyup('W')"
+              @mousedown="btnKeydown('W')"
+              @mouseup="btnKeyup('W')"
              label="W" push :color="colorW" class="keyW" :class="{'q-btn--active':activeW}" />
       <q-btn size="lg"
+               @touchstart="btnKeydown('A')"
+              @touchend="btnKeyup('A')"
+              @mousedown="btnKeydown('A')"
+              @mouseup="btnKeyup('A')"
              label="A" push :color="colorA" class="keyA" :class="{'q-btn--active':activeA}" />
       <q-btn size="lg"
+               @touchstart="btnKeydown('S')"
+              @touchend="btnKeyup('S')"
+              @mousedown="btnKeydown('S')"
+              @mouseup="btnKeyup('S')"
              label="S" push :color="colorS" class="keyS" :class="{'q-btn--active':activeS}" />
       <q-btn size="lg"
+               @touchstart="btnKeydown('D')"
+              @touchend="btnKeyup('D')"
+              @mousedown="btnKeydown('D')"
+              @mouseup="btnKeyup('D')"
              label="D" push :color="colorD" class="keyD" :class="{'q-btn--active':activeD}" />
       <q-btn size="lg"
+               @touchstart="btnKeydown('SPACE')"
+              @touchend="btnKeyup('SPACE')"
+              @mousedown="btnKeydown('SPACE')"
+              @mouseup="btnKeyup('SPACE')"
              label="SPACE" push :color="colorSPACE"
              class="keySpace" :class="{'q-btn--active':activeSPACE}" />
       </div>
@@ -96,6 +116,25 @@ export default {
     directionColor() {
       const { x, y } = this.$store.state.gamepad.motion;
       return x === 0 && y === 0 ? 'blue-3' : 'blue-6';
+    },
+  },
+  methods: {
+    btnKeydown(key) {
+      const { x, y } = this.$store.state.gamepad.motion;
+      const { keyboard } = this.$store.state.gamepad;
+      if (key === 'W' && !keyboard.keyW) { this.$store.commit('gamepad/setMotionY', y + 1); }
+      if (key === 'A' && !keyboard.keyA) { this.$store.commit('gamepad/setMotionX', x - 1); }
+      if (key === 'S' && !keyboard.keyS) { this.$store.commit('gamepad/setMotionY', y - 1); }
+      if (key === 'D' && !keyboard.keyD) { this.$store.commit('gamepad/setMotionX', x + 1); }
+      this.$store.commit('gamepad/keyboardDown', key);
+    },
+    btnKeyup(key) {
+      const { x, y } = this.$store.state.gamepad.motion;
+      if (key === 'W') { this.$store.commit('gamepad/setMotionY', y - 1); }
+      if (key === 'A') { this.$store.commit('gamepad/setMotionX', x + 1); }
+      if (key === 'S') { this.$store.commit('gamepad/setMotionY', y + 1); }
+      if (key === 'D') { this.$store.commit('gamepad/setMotionX', x - 1); }
+      this.$store.commit('gamepad/keyboardUp', key);
     },
   },
   created() {

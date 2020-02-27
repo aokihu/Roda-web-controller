@@ -9,13 +9,14 @@ export default {
     onKeydown(e) {
       const { key } = e;
       const { keyboard } = this.$store.state.gamepad;
+      const { x, y } = this.$store.state.gamepad.motion;
       if (['w', 'a', 's', 'd', ' '].includes(key)) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        if (key === 'w' && !keyboard.keyW) { this.keys.y += 1; }
-        if (key === 'a' && !keyboard.keyA) { this.keys.x -= 1; }
-        if (key === 's' && !keyboard.keyS) { this.keys.y -= 1; }
-        if (key === 'd' && !keyboard.keyD) { this.keys.x += 1; }
+        if (key === 'w' && !keyboard.keyW) { this.$store.commit('gamepad/setMotionY', y + 1); }
+        if (key === 'a' && !keyboard.keyA) { this.$store.commit('gamepad/setMotionX', x - 1); }
+        if (key === 's' && !keyboard.keyS) { this.$store.commit('gamepad/setMotionY', y - 1); }
+        if (key === 'd' && !keyboard.keyD) { this.$store.commit('gamepad/setMotionX', x + 1); }
         if (key === ' ' && keyboard.keySPACE) { /** */ }
         if (key !== ' ') { this.$store.commit('gamepad/keyboardDown', key); } else {
           this.$store.commit('gamepad/keyboardDown', 'space');
@@ -24,12 +25,12 @@ export default {
     },
     onKeyup(e) {
       const { key } = e;
+      const { x, y } = this.$store.state.gamepad.motion;
       if (['w', 'a', 's', 'd', ' '].includes(key)) {
-        if (key === 'w') { this.keys.y -= 1; }
-        if (key === 'a') { this.keys.x += 1; }
-        if (key === 's') { this.keys.y += 1; }
-        if (key === 'd') { this.keys.x -= 1; }
-
+        if (key === 'w') { this.$store.commit('gamepad/setMotionY', y - 1); }
+        if (key === 'a') { this.$store.commit('gamepad/setMotionX', x + 1); }
+        if (key === 's') { this.$store.commit('gamepad/setMotionY', y + 1); }
+        if (key === 'd') { this.$store.commit('gamepad/setMotionX', x - 1); }
         if (key !== ' ') { this.$store.commit('gamepad/keyboardUp', key); } else { this.$store.commit('gamepad/keyboardUp', 'space'); }
       }
     },
@@ -42,12 +43,12 @@ export default {
 
     // 定时300ms处理接受的字符
     this.keyboardCheckTimer = setInterval(() => {
-      const { x, y } = this.keys;
-      if (this.oldKeys.x !== x || this.oldKeys.y !== y) {
-        this.$store.commit('gamepad/setMotionX', this.keys.x);
-        this.$store.commit('gamepad/setMotionY', this.keys.y);
+      const { x, y } = this.$store.state.gamepad.motion;
+      const { x: oldX, y: oldY } = this.$store.state.gamepad.oldMotion;
+      if (oldX !== x || oldY !== y) {
         this.$bus.emit('motion_update', { x: this.keys.x, y: this.keys.y });
         this.oldKeys = { ...this.keys };
+        this.$store.commit('gamepad/setOldMotion', { x, y });
       }
     }, 200);
 
@@ -55,7 +56,7 @@ export default {
     // 当远程机器人在1.5秒内没有接收到新的行动数据则会自动停止
     // 因此这里将定时器的间隔设置成750ms
     this.keyboardSendTimer = setInterval(() => {
-      const { x, y } = this.oldKeys;
+      const { x, y } = this.$store.state.gamepad.oldMotion;
       const {
         keyA, keyS, keyD, keyW, keySPACE,
       } = this.$store.state.gamepad.keyboard;

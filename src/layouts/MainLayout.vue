@@ -3,7 +3,7 @@
     <q-header>
       <q-toolbar class="row">
         <img src="~/assets/roda-logo.svg"  style="height:30px"/>
-        <q-chip size="sm">0.2.3</q-chip>
+        <q-chip size="sm">0.2.4</q-chip>
         <div class="col" />
         <div class="row">
           <signal />

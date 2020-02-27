@@ -2,9 +2,11 @@
   <panel class="fit" label="MAP" overlayer>
       <el-amap
         class="fit"
+        mapStyle="macaron"
         :vid="'amap-vue'"
         :zoom="zoom"
-        :center="center">
+        :center="center"
+        :events="events">
         <el-amap-marker :position="center"/>
       </el-amap>
   </panel>
@@ -19,8 +21,15 @@ import Panel from './panel';
 export default {
   data() {
     return {
-      zoom: 20,
-      center: [0, 0],
+      zoom: 15,
+      center: [120.146077, 30.252248],
+      events: {
+        init() {
+          const amapLogo = document.querySelector('.amap-logo > img');
+          console.log(amapLogo);
+          setTimeout(() => { amapLogo.style.opacity = '0'; }, 10);
+        },
+      },
     };
   },
   methods: {
