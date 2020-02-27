@@ -1,6 +1,6 @@
 {
   "name": "web-controller",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A Quasar Framework app",
   "productName": "Roda Controller",
   "cordovaId": "org.cordova.quasar.app",

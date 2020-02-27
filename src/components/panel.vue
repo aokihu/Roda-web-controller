@@ -50,7 +50,7 @@ export default {
       return this.color;
     },
     backgroundColor() {
-      return changeAlpha(this.color, 0.05);
+      return changeAlpha(this.color, 0.15);
     },
     panelOverlayerClass() {
       return this.overlayer ? 'relative-position' : null;
