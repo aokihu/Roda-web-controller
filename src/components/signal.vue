@@ -1,19 +1,19 @@
 <template>
   <div>
     <!-- P2P -->
-    <q-chip square :outline="p2pSignalOutline"
-            :label="targetId" size="sm" :icon="p2pSignalIcon"
+    <q-chip square size="sm" :outline="p2pSignalOutline"
+            :label="targetId" :icon="p2pSignalIcon"
             :color="p2pSignalBgColor"
             :text-color="p2pSignalTextColor" />
     <!-- 服务器连接状态 -->
     <q-chip square label="SERVER" size="sm" :icon="serverSignalIcon"
             :color="serverSignalBgColor"
             :text-color="serverSignalTextColor" />
-    <q-btn label="Connect" size="sm" color="indigo-6" unelevated
+    <q-btn label="Connect" size="sm" color="cyan-6" unelevated
           v-if="!isP2PConnected"
           :disable="connectBtnDisable"
           @click="connect" />
-    <q-btn label="Disconnect" size="sm" color="cyan-6" unelevated
+    <q-btn label="Disconnect" size="sm" color="pink-7" unelevated
           v-if="isP2PConnected"
           @click="disconnect" />
   </div>

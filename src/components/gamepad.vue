@@ -43,7 +43,7 @@
               style="transition: all 150ms ease-out" />
     </div>
     <div v-if="!isConnected" class="fit row justify-center items-center relative-position">
-      <q-icon :name="icon" color="blue-3" size="64px" class="absolute-top-left q-ma-xs" />
+      <q-icon :name="icon" color="blue-grey-3" size="64px" class="absolute-top-left q-ma-xs" />
       <div class="keyboard6">
       <q-btn size="lg"
               @touchstart="btnKeydown('W')"
@@ -97,11 +97,11 @@ export default {
     activeA() { return this.$store.state.gamepad.keyboard.keyA; },
     activeD() { return this.$store.state.gamepad.keyboard.keyD; },
     activeSPACE() { return this.$store.state.gamepad.keyboard.keySPACE; },
-    colorW() { return this.activeW ? 'pink-8' : 'blue-7'; },
-    colorA() { return this.activeA ? 'pink-8' : 'blue-7'; },
-    colorS() { return this.activeS ? 'pink-8' : 'blue-7'; },
-    colorD() { return this.activeD ? 'pink-8' : 'blue-7'; },
-    colorSPACE() { return this.activeSPACE ? 'pink-8' : 'blue-7'; },
+    colorW() { return this.activeW ? 'accent' : 'secondary'; },
+    colorA() { return this.activeA ? 'accent' : 'secondary'; },
+    colorS() { return this.activeS ? 'accent' : 'secondary'; },
+    colorD() { return this.activeD ? 'accent' : 'secondary'; },
+    colorSPACE() { return this.activeSPACE ? 'accent' : 'secondary'; },
     directionRotation() {
       const { x, y } = this.$store.state.gamepad.motion;
       if (y === 0 && x === 1) return 'transform: rotate(90deg)';
@@ -115,7 +115,7 @@ export default {
     },
     directionColor() {
       const { x, y } = this.$store.state.gamepad.motion;
-      return x === 0 && y === 0 ? 'blue-3' : 'blue-6';
+      return x === 0 && y === 0 ? 'secondary' : 'primary';
     },
   },
   methods: {
