@@ -32,6 +32,35 @@ export default {
       this.$store.commit('system/addFailLog', 'Register fail');
     });
 
+    // 查询谁在线上的响应
+    this.$socket.on('ret_who_is_online', (data) => {
+      const { destId } = this.$store.state.system.settings;
+      data.forEach((d) => {
+        if (d.id === destId && d.online) {
+          this.$bus.emit('target_device_online');
+        }
+      });
+    });
+
+    // 终端设备上线
+    this.$socket.on('device_online', (data) => {
+      const { destId } = this.$store.state.system.settings;
+      if (destId === data) {
+        this.$store.commit('system/p2pOnline');
+      }
+    });
+
+    // 终端设备下线
+    this.$socket.on('device_offline', (data) => {
+      const { destId } = this.$store.state.system.settings;
+      if (destId === data) {
+        this.$store.commit('system/p2pOffline');
+      }
+    });
+
+
+    // ----- P2P 相关事件 ---------------------------------
+
     this.$socket.on('answer', (data) => {
       this.$store.commit('system/addLog', 'Receive answer signal');
       const { fromId, payload, type } = data;

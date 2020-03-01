@@ -16,5 +16,16 @@ export default {
           break;
       }
     });
+
+
+    // 处理目标终端设备上线消息
+    this.$bus.on('target_device_online', () => {
+      this.$store.commit('system/p2pOnline');
+    });
+
+    // 处理目标终端设备下线消息
+    this.$bus.on('target_device_offline', () => {
+      this.$store.commit('system/p2pOffline');
+    });
   },
 };

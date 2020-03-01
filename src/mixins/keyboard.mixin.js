@@ -50,7 +50,7 @@ export default {
         this.oldKeys = { ...this.keys };
         this.$store.commit('gamepad/setOldMotion', { x, y });
       }
-    }, 200);
+    }, 100);
 
     // 当按键按下的时候启动计时器用于发送重复的行动数据，防止远程机器人进入刹车状态
     // 当远程机器人在1.5秒内没有接收到新的行动数据则会自动停止

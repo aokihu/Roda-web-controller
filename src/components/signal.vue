@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- P2P -->
-    <q-chip square :label="targetId" size="sm" :icon="p2pSignalIcon"
+    <q-chip square
+            :label="targetId" size="sm" :icon="p2pSignalIcon"
             :color="p2pSignalBgColor"
             :text-color="p2pSignalTextColor" />
     <!-- 服务器连接状态 -->
@@ -25,7 +26,8 @@ export default {
     },
     serverSignalBgColor() {
       const { isConnected } = this.$store.state.system.server;
-      return isConnected ? 'green-6' : 'grey-4';
+      if (isConnected) { return 'green-6'; }
+      return 'grey-4';
     },
     serverSignalTextColor() {
       const { isConnected } = this.$store.state.system.server;
@@ -36,12 +38,14 @@ export default {
       return isConnected ? this.p2pConnect : this.p2pDisconnect;
     },
     p2pSignalBgColor() {
-      const { isConnected } = this.$store.state.system.p2p;
-      return isConnected ? 'green-6' : 'grey-4';
+      const { isConnected, isOnline } = this.$store.state.system.p2p;
+      if (isConnected) return 'green-6';
+      if (isOnline) return 'blue-5';
+      return 'grey-4';
     },
     p2pSignalTextColor() {
-      const { isConnected } = this.$store.state.system.p2p;
-      return isConnected ? 'white' : 'grey-9';
+      const { isConnected, isOnline } = this.$store.state.system.p2p;
+      return isConnected || isOnline ? 'white' : 'grey-9';
     },
   },
   created() {

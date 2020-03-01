@@ -36,6 +36,10 @@ export function addRecvData(state, payload) { insertData(state, payload, 1); }
 export function serverConnected(state) { state.server.isConnected = true; }
 export function serverDisconnected(state) { state.server.isConnected = false; }
 
+// Target device 目标终端
+export function p2pOnline(state) { state.p2p.isOnline = true; }
+export function p2pOffline(state) { state.p2p.isOnline = false; }
+
 // P2P
 export function p2pConnected(state) { state.p2p.isConnected = true; }
 export function p2pDisconnected(state) { state.p2p.isConnected = false; }
