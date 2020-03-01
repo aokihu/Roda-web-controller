@@ -1,3 +1,5 @@
+import nanoid from 'nanoid';
+
 function insertLog(state, content, type) {
   const { log: { index } } = state;
   const now = new Date();
@@ -47,3 +49,6 @@ export function p2pDisconnected(state) { state.p2p.isConnected = false; }
 // mediastream
 export function videoPlay(state) { state.mediastream.video.playing = true; }
 export function videoStop(state) { state.mediastream.video.playing = false; }
+
+// 创建终端唯一的ID
+export function genratePeerId(state) { state.settings.peerId = `ctr-${nanoid(12)}`; }

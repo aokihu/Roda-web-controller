@@ -1,6 +1,6 @@
 export default {
   settings: {
-    peerId: 'RoBot-C-1',
+    peerId: 'PEER_ID',
     destId: 'RoBot-Car-1',
     type: 'controller',
   },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- P2P -->
-    <q-chip square
+    <q-chip square :outline="p2pSignalOutline"
             :label="targetId" size="sm" :icon="p2pSignalIcon"
             :color="p2pSignalBgColor"
             :text-color="p2pSignalTextColor" />
@@ -40,8 +40,13 @@ export default {
     p2pSignalBgColor() {
       const { isConnected, isOnline } = this.$store.state.system.p2p;
       if (isConnected) return 'green-6';
-      if (isOnline) return 'blue-5';
+      if (isOnline) return 'light-green-2';
       return 'grey-4';
+    },
+    p2pSignalOutline() {
+      const { isConnected, isOnline } = this.$store.state.system.p2p;
+      if (!isConnected && isOnline) return true;
+      return false;
     },
     p2pSignalTextColor() {
       const { isConnected, isOnline } = this.$store.state.system.p2p;

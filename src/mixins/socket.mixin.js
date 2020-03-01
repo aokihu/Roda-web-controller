@@ -86,6 +86,8 @@ export default {
       this.$bus.emit('p2p_connect', { type });
     });
 
+
+    // 最后发起连接
     this.$socket.connect();
     this.$store.commit('system/addLog', 'Socket connecting...');
   },

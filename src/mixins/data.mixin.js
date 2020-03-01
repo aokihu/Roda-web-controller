@@ -17,4 +17,8 @@ export default {
     this.$store.commit('system/addLog', `ID: ${this.peerId}`);
     this.$store.commit('system/addLog', `Target ID: ${this.destId}`);
   },
+  created() {
+    // 创建一个唯一的终端ID
+    this.$store.commit('system/genratePeerId');
+  },
 };
