@@ -9,6 +9,13 @@
     <q-chip square label="SERVER" size="sm" :icon="serverSignalIcon"
             :color="serverSignalBgColor"
             :text-color="serverSignalTextColor" />
+    <q-btn label="Connect" size="sm" color="indigo-6" unelevated
+          v-if="!isP2PConnected"
+          :disable="connectBtnDisable"
+          @click="connect" />
+    <q-btn label="Disconnect" size="sm" color="cyan-6" unelevated
+          v-if="isP2PConnected"
+          @click="disconnect" />
   </div>
 </template>
 
@@ -51,6 +58,22 @@ export default {
     p2pSignalTextColor() {
       const { isConnected, isOnline } = this.$store.state.system.p2p;
       return isConnected || isOnline ? 'white' : 'grey-9';
+    },
+    isP2PConnected() { return this.$store.state.system.p2p.isConnected; },
+    connectBtnDisable() {
+      const { isConnected, isOnline } = this.$store.state.system.p2p;
+      return isConnected ? true : !isOnline;
+    },
+  },
+  methods: {
+    // P2P连接
+    connect() {
+      this.$bus.emit('prepare_call');
+    },
+    // P2P断开连接
+    disconnect() {
+      this.$bus.emit('hang_up');
+      this.$store.commit('system/p2pDisconnected');
     },
   },
   created() {

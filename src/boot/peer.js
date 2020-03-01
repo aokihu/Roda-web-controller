@@ -53,6 +53,7 @@ export default ({ Vue, store }) => {
       store.commit('system/addFailLog', err);
       store.commit('system/p2pDisconnected');
       // clearInterval(HandTimer);
+      peer.destroy();
     });
 
     peer.on('data', (data) => {
@@ -105,6 +106,7 @@ export default ({ Vue, store }) => {
       store.commit('system/addFailLog', 'Media Stream P2P error');
       store.commit('system/addFailLog', err);
       store.commit('system/p2pDisconnected');
+      mpeer.destroy();
     });
 
     mpeer.on('stream', (stream) => {

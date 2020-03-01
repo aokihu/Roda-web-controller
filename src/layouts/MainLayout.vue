@@ -6,11 +6,12 @@
         <q-chip size="sm">0.2.5</q-chip>
         <div class="col" />
         <div class="row">
+
           <signal />
-          <q-btn label="Connect" size="sm" flat @click="p2pConnect" />
         </div>
       </q-toolbar>
     </q-header>
+
 
     <q-page-container>
       <router-view />
@@ -30,10 +31,5 @@ export default {
   name: 'MainLayout',
   mixins: [BusMixin, DataMixin, SocketMixin, PeerMixin, Keyboard],
   components: { Signal },
-  methods: {
-    p2pConnect() {
-      this.$socket.emit('prepare_call', { fromId: this.peerId, destId: this.destId, type: 'data' });
-    },
-  },
 };
 </script>

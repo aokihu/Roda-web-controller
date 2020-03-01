@@ -17,6 +17,17 @@ export default {
       }
     });
 
+    // 处理预备拨号
+    this.$bus.on('prepare_call', () => {
+      const { peerId, destId } = this.$store.state.system.settings;
+      this.$socket.emit('prepare_call', { fromId: peerId, destId, type: 'data' });
+    });
+
+    // 断开P2P连接
+    this.$bus.on('hang_up', () => {
+      this.$peer.destroy();
+    });
+
 
     // 处理目标终端设备上线消息
     this.$bus.on('target_device_online', () => {
